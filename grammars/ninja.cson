@@ -1,0 +1,50 @@
+'scopeName': 'source.ninja'
+'name': 'Ninja'
+'fileTypes': [
+  'ninja'
+]
+'foldingStartMarker': '^rule'
+'foldingStopMarker': '^\\S'
+'patterns': [
+  {
+    'match': '^(rule)\\s+(\\S+)'
+    'captures':
+      '1':
+        'name': 'keyword.rule.ninja'
+      '2':
+        'name': 'entity.name.function.rule.ninja'
+
+  },
+  {
+    'match': '^(build)\\s+(\\S+):\\s*(\\S+)'
+    'captures':
+      '1':
+        'name': 'keyword.build.ninja'
+      '2':
+        'name': 'support.function.build.ninja'
+      '3':
+        'name': 'entity.name.function.rule.ninja'
+  },
+  {
+    'match': '^(default)\\s+(\\S+):'
+    'captures':
+      '1':
+        'name': 'keyword.build.ninja'
+      '2':
+        'name': 'support.function.build.ninja'
+  },
+  {
+    'match': '^(\\s*)([\\w_]+)\\s*='
+    'captures':
+      '2':
+        'name': 'constant.language.build.ninja'
+  },
+  {
+    'match': '\\$[\\w_]+'
+    'name': 'variable.parameter.build.ninja'
+  }
+  {
+    'match': '(\\$)\\s*$'
+    'name': 'constant.language.build.ninja'
+  }
+]

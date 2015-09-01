@@ -1,0 +1,17 @@
+{
+  "version": "0.1.0",
+  "name": "language-ninja",
+  "description": "Ninja build langauge syntax highlighting",
+  "license": "MIT",
+  "engines": {
+    "atom": "*",
+    "node": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/khyo/language-ninja.git"
+  },
+  "bugs": {
+    "url": "https://github.com/khyo/language-ninja/issues"
+  }
+}

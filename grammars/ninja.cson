@@ -7,6 +7,10 @@
 'foldingStopMarker': '^\\S'
 'patterns': [
   {
+    'match': '^\\s*(#.*)'
+    'name': 'comment.ninja'
+  },
+  {
     'match': '^(rule)\\s+(\\S+)'
     'captures':
       '1':

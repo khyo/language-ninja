@@ -14,13 +14,42 @@
       '0': 'name': 'punctuation.definition.comment.ninja'
   },
   {
-    'match': '^(rule)\\s+(\\S+)'
-    'captures':
+    'name': 'meta.rule.ninja'
+    'begin': '^(rule)\\s+(\\S+)'
+    'end': '^(?=\\S)'
+    'beginCaptures':
       '1':
-        'name': 'keyword.rule.ninja'
+        'name': 'storage.type.rule.ninja'
       '2':
         'name': 'entity.name.function.rule.ninja'
-
+    'patterns': [
+      {
+        'name': 'meta.rule-command.ninja'
+        'begin': '^\\s*(command)\\s*(=)'
+        'beginCaptures':
+          '1': 'name': 'variable.language.rule.ninja'
+          '2': 'name': 'keyword.operator.assignment.ninja'
+        'end': '(?<!\\$)$'
+        'patterns': [
+          {
+            'include': '$self'
+          }
+        ]
+      }
+      {
+        'name': 'meta.rule-property.ninja'
+        'match': '(?x) ^ \\s*
+          (depfile|deps|msvc_deps_prefix|description|generator|in
+          |in_newline|out|restat|rspfile|rspfile_content)
+          \\s* (=)'
+        'captures':
+          '1': 'name': 'support.variable.language.rule.ninja'
+          '2': 'name': 'keyword.operator.assignment.ninja'
+      }
+      {
+        'include': '$self'
+      }
+    ]
   },
   {
     'match': '^(build)\\s+(\\S+):\\s*(\\S+)'
@@ -41,11 +70,11 @@
         'name': 'support.function.build.ninja'
   },
   {
-    'match': '^(\\s*)([\\w_]+)\\s*='
+    'match': '^\\s*(\\w+)\\s*(=)'
     'captures':
-      '2':
-        'name': 'constant.language.build.ninja'
-  },
+      '1': 'name': 'variable.other.ninja'
+      '2': 'name': 'keyword.operator.assignment.ninja'
+  }
   {
     'match': '\\$[\\w_]+'
     'name': 'variable.parameter.build.ninja'

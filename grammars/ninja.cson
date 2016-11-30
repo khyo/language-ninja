@@ -31,7 +31,7 @@
   },
   {
     'name': 'meta.build.ninja'
-    'begin': '^(build)\\s+(\\S+)'
+    'begin': '^(build)\\s+((?:[^\\s:$]|\\$.)+)'
     'beginCaptures':
       '1': 'name': 'storage.type.build.ninja'
       '2':

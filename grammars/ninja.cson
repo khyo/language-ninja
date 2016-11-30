@@ -24,43 +24,52 @@
         'name': 'entity.name.function.rule.ninja'
     'patterns': [
       {
-        'name': 'meta.rule-command.ninja'
-        'begin': '^\\s*(command)\\s*(=)'
-        'beginCaptures':
-          '1': 'name': 'variable.language.rule.ninja'
-          '2': 'name': 'keyword.operator.assignment.ninja'
-        'end': '(?<!\\$)$'
-        'patterns': [
-          {
-            'include': '$self'
-          }
-        ]
-      }
-      {
-        'name': 'meta.rule-property.ninja'
-        'match': '(?x) ^ \\s*
-          (depfile|deps|msvc_deps_prefix|description|generator|in
-          |in_newline|out|restat|rspfile|rspfile_content)
-          \\s* (=)'
-        'captures':
-          '1': 'name': 'support.variable.language.rule.ninja'
-          '2': 'name': 'keyword.operator.assignment.ninja'
-      }
-      {
         'include': '$self'
       }
     ]
   },
   {
-    'match': '^(build)\\s+(\\S+):\\s*(\\S+)'
+    'name': 'meta.build.ninja'
+    'begin': '^(build)\\s+(\\S+)(:)'
+    'beginCaptures':
+      '1': 'name': 'storage.type.build.ninja'
+      '2': 'name': 'entity.name.function.build.ninja'
+      '3': 'name': 'punctuation.separator.dictionary.key-value.ninja'
+    'end': '^(?=\\S)'
+    'patterns': [
+      {
+        'match': '\\G\\s*(phony)\\b'
+        'captures':
+          '1': 'name': 'storage.modifier.phony.build.ninja'
+      }
+      {
+        'include': '$self'
+      }
+    ]
+  }
+  {
+    'name': 'meta.command.ninja'
+    'begin': '^\\s*(command)\\s*(=)'
+    'beginCaptures':
+      '1': 'name': 'variable.language.rule.ninja'
+      '2': 'name': 'keyword.operator.assignment.ninja'
+    'end': '(?<!\\$)$'
+    'patterns': [
+      {
+        'include': '$self'
+      }
+    ]
+  }
+  {
+    'name': 'meta.property.ninja'
+    'match': '(?x) ^ \\s*
+      (depfile|deps|msvc_deps_prefix|description|generator|in
+      |in_newline|out|restat|rspfile|rspfile_content)
+      \\s* (=)'
     'captures':
-      '1':
-        'name': 'keyword.build.ninja'
-      '2':
-        'name': 'support.function.build.ninja'
-      '3':
-        'name': 'entity.name.function.rule.ninja'
-  },
+      '1': 'name': 'support.variable.language.rule.ninja'
+      '2': 'name': 'keyword.operator.assignment.ninja'
+  }
   {
     'match': '^(default)\\s+(\\S+):'
     'captures':

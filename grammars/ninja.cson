@@ -14,14 +14,14 @@
       '0': 'name': 'punctuation.definition.comment.ninja'
   },
   {
-    'name': 'meta.rule.ninja'
-    'begin': '^(rule)\\s+(\\S+)'
+    'name': 'meta.$1.ninja'
+    'begin': '^(rule|pool)\\s+(\\S+)'
     'end': '^(?=\\S)'
     'beginCaptures':
       '1':
-        'name': 'storage.type.rule.ninja'
+        'name': 'storage.type.$1.ninja'
       '2':
-        'name': 'entity.name.function.rule.ninja'
+        'name': 'entity.name.function.$1.ninja'
         'patterns': ['include': '#escapes']
     'patterns': [
       {
@@ -43,6 +43,22 @@
         'match': '\\G\\s*(phony)\\b'
         'captures':
           '1': 'name': 'storage.modifier.phony.build.ninja'
+      }
+      {
+        'include': '$self'
+      }
+    ]
+  }
+  {
+    'name': 'meta.default.ninja'
+    'begin': '^(default)(?=\\s|$)'
+    'end': '(?<!\\$)$'
+    'beginCaptures':
+      '1': 'name': 'storage.type.build.default.ninja'
+    'patterns': [
+      {
+        'match': '\\S+'
+        'name': 'entity.name.function.build.ninja'
       }
       {
         'include': '$self'

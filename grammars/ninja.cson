@@ -40,14 +40,19 @@
     'end': '^(?=\\S)'
     'patterns': [
       {
-        'match': '\\G\\s*(phony)\\b'
-        'captures':
-          '1': 'name': 'storage.modifier.phony.build.ninja'
-      }
-      {
         'include': '$self'
       }
     ]
+  }
+  {
+    'match': '(?<=:)\\s*(phony)\\b'
+    'captures':
+      '1': 'name': 'storage.modifier.phony.build.ninja'
+  }
+  {
+    'match': '(?<==)\\s*(\\.\\d+|\\d+(?:\\.\\d+)?)'
+    'captures':
+      '1': 'name': 'constant.numeric.ninja'
   }
   {
     'name': 'meta.default.ninja'
@@ -75,6 +80,13 @@
     'patterns': [
       {
         'include': '$self'
+      }
+      {
+        'match': '(?:\\G|^)(.+)(?=$)'
+        'captures':
+          '1':
+            'name': 'embedded.source.shell'
+            'patterns': ['include': 'source.shell']
       }
     ]
   }

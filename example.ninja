@@ -1,3 +1,10 @@
+build foo: phony some/file/in/a/faraway/subdir/foo
+build foo: phony some/file/in/a/faraway/subdir/foo
+
+default foo bar
+default baz
+
+
 rule gn
   command = /Users/johngardner/Sandbox/v8/buildtools/mac/gn --root=/Users/johngardner/Sandbox/v8 -q --check gen //out.gn/x64.release/
   description = Regenerating ninja files

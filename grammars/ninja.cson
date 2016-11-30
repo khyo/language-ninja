@@ -22,6 +22,7 @@
         'name': 'storage.type.rule.ninja'
       '2':
         'name': 'entity.name.function.rule.ninja'
+        'patterns': ['include': '#escapes']
     'patterns': [
       {
         'include': '$self'
@@ -30,11 +31,12 @@
   },
   {
     'name': 'meta.build.ninja'
-    'begin': '^(build)\\s+(\\S+)(:)'
+    'begin': '^(build)\\s+(\\S+)'
     'beginCaptures':
       '1': 'name': 'storage.type.build.ninja'
-      '2': 'name': 'entity.name.function.build.ninja'
-      '3': 'name': 'punctuation.separator.dictionary.key-value.ninja'
+      '2':
+        'name': 'entity.name.function.build.ninja'
+        'patterns': ['include': '#escapes']
     'end': '^(?=\\S)'
     'patterns': [
       {
@@ -84,17 +86,49 @@
     ]
   }
   {
+    'match': ':'
+    'name': 'punctuation.separator.dictionary.key-value.ninja'
+  }
+  {
     'match': '^\\s*(\\w+)\\s*(=)'
     'captures':
       '1': 'name': 'variable.other.ninja'
       '2': 'name': 'keyword.operator.assignment.ninja'
   }
   {
-    'match': '\\$[\\w_]+'
-    'name': 'variable.parameter.build.ninja'
+    'match': '(\\$)\\w+'
+    'name': 'variable.parameter.reference.ninja'
+    'captures':
+      '1': 'name': 'punctuation.definition.variable.ninja'
   }
   {
-    'match': '(\\$)\\s*$'
-    'name': 'constant.language.build.ninja'
+    'match': '\\$$\\n?'
+    'name': 'constant.character.escape.newline.ninja'
+  }
+  {
+    'name': 'variable.other.bracket.ninja'
+    'match': '(\\${)\\s*[^{}]+\\s*(})'
+    'captures':
+      '1': 'name': 'punctuation.definition.variable.begin.ninja'
+      '2': 'name': 'punctuation.definition.variable.end.ninja'
+  }
+  {
+    'include': '#escapes'
   }
 ]
+'repository':
+  'escapes':
+    'patterns': [
+      {
+        'match': '\\${2}'
+        'name': 'constant.character.escape.dollar-sign.ninja'
+      }
+      {
+        'match': '\\$[ \\t]'
+        'name': 'constant.character.escape.whitespace.ninja'
+      }
+      {
+        'match': '\\$:'
+        'name': 'constant.character.escape.colon.ninja'
+      }
+    ]

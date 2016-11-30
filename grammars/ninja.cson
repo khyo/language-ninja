@@ -92,7 +92,7 @@
   {
     'match': '^\\s*(\\w+)\\s*(=)'
     'captures':
-      '1': 'name': 'variable.other.ninja'
+      '1': 'name': 'variable.parameter.reference.ninja'
       '2': 'name': 'keyword.operator.assignment.ninja'
   }
   {

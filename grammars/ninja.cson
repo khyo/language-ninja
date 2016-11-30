@@ -71,13 +71,18 @@
       '2': 'name': 'keyword.operator.assignment.ninja'
   }
   {
-    'match': '^(default)\\s+(\\S+):'
-    'captures':
-      '1':
-        'name': 'keyword.build.ninja'
-      '2':
-        'name': 'support.function.build.ninja'
-  },
+    'name': 'meta.$1.ninja'
+    'begin': '^(subninja|include)\\s+'
+    'end': '(?<!\\$)$'
+    'beginCaptures':
+      '1': 'name': 'keyword.operator.$1.ninja'
+    'contentName': 'string.unquoted.filename.ninja'
+    'patterns': [
+      {
+        'include': '$self'
+      }
+    ]
+  }
   {
     'match': '^\\s*(\\w+)\\s*(=)'
     'captures':

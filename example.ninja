@@ -21,8 +21,8 @@ pool build_toolchain_mac_bundle_pool
 
 subninja toolchain.ninja
 
-build wasm_asmjs_fuzzer: phony obj/wasm_asmjs_fuzzer.stamp
-build wasm_fuzzer: phony obj/wasm_fuzzer.stamp
+build wasm_asmjs_fuzzer || out1 out2: phony obj/wasm_asmjs_fuzzer.stamp
+build wasm_fuzzer| out1 out2: phony obj/wasm_fuzzer.stamp
 build parser_fuzzer: phony obj/parser_fuzzer.stamp
 build json_fuzzer: phony obj/json_fuzzer.stamp
 build regexp_fuzzer: phony obj/regexp_fuzzer.stamp

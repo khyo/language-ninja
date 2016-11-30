@@ -31,7 +31,7 @@
   },
   {
     'name': 'meta.build.ninja'
-    'begin': '^(build)\\s+((?:[^\\s:$]|\\$.)+)'
+    'begin': '^(build)\\s+((?:[^\\s:|$]|\\$.)+)'
     'beginCaptures':
       '1': 'name': 'storage.type.build.ninja'
       '2':
@@ -39,6 +39,18 @@
         'patterns': ['include': '#escapes']
     'end': '^(?=\\S)'
     'patterns': [
+      {
+        'match': '(?<=\\G)\\s*(\\|{1,2})\\s*([^:]+)(?=:)'
+        'captures':
+          '1': 'name': 'keyword.operator.build.ninja'
+          '2':
+            'name': 'variable.reference.ninja'
+            'patterns': [
+              {
+                'include': '#escapes'
+              }
+            ]
+      }
       {
         'include': '$self'
       }

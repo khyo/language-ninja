@@ -1,5 +1,9 @@
 build foo: phony some/file/in/a/faraway/subdir/foo
-build foo: phony some/file/in/a/faraway/subdir/foo
+rule demo
+  command = echo "this is a demo of $foo"
+
+build out: demo || foo bar
+  foo = bar
 
 default foo bar
 default baz

@@ -42,25 +42,44 @@
   },
   {
     'name': 'meta.build.ninja'
-    'begin': '^(build)\\s+((?:[^\\s:|$]|\\$.)+)'
+    'begin': '''(?x)
+      ^ (build) \\s+
+      ((?:[^\\s:|$]|\\$.)+)
+      (?:
+        (\\|{1,2})
+        ((?:[^:$]|\\$.)*)
+        (?=:)
+      )?
+    '''
     'beginCaptures':
-      '1': 'name': 'storage.type.build.ninja'
+      '1':
+        'name': 'storage.type.build.ninja'
       '2':
         'name': 'entity.name.function.build.ninja'
         'patterns': ['include': '#escapes']
-    'end': '^(?=\\S)'
+      '3':
+        'name': 'keyword.operator.build.ninja'
+      '4':
+        'patterns': [
+          {
+            'include': '#escapes'
+          }
+          {
+            'match': '(?:[^\\s:|$]|\\$.)+'
+            'name': 'variable.reference.ninja'
+            'captures':
+              '0': 'patterns': ['include': '#escapes']
+          }
+        ]
+    'end': '(?<!\\$)$'
     'patterns': [
       {
-        'match': '(?<=\\G)\\s*(\\|{1,2})\\s*([^:]+)(?=:)'
-        'captures':
-          '1': 'name': 'keyword.operator.build.ninja'
-          '2':
-            'name': 'variable.reference.ninja'
-            'patterns': [
-              {
-                'include': '#escapes'
-              }
-            ]
+        'match': '\\|{2}'
+        'name': 'keyword.operator.build.ninja'
+      }
+      {
+        'match': '(?:[^\\s:|$]|\\$.)+'
+        'name': 'variable.reference.ninja'
       }
       {
         'include': '$self'

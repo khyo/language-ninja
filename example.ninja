@@ -1,0 +1,393 @@
+build foo: phony some/file/in/a/faraway/subdir/foo
+rule demo
+  command = echo "this is a demo of $foo"
+
+build out: demo || foo bar
+  foo = bar
+
+default foo bar
+default baz
+
+
+rule gn
+  command = /Users/johngardner/Sandbox/v8/buildtools/mac/gn --root=/Users/johngardner/Sandbox/v8 -q --check gen //out.gn/x64.release/
+  description = Regenerating ninja files
+
+build build.ninja: gn
+  generator = 1
+  depfile = build.ninja.d
+
+pool build_toolchain_link_pool
+  depth = 4
+
+pool build_toolchain_mac_bundle_pool
+  depth = 4
+
+subninja toolchain.ninja
+
+build wasm_asmjs_fuzzer || out1 out2: phony obj/wasm_asmjs_fuzzer.stamp
+build wasm_fuzzer| out1 out2: phony obj/wasm_fuzzer.stamp
+build parser_fuzzer: phony obj/parser_fuzzer.stamp
+build json_fuzzer: phony obj/json_fuzzer.stamp
+build regexp_fuzzer: phony obj/regexp_fuzzer.stamp
+build js2c_experimental_extras: phony obj/js2c_experimental_extras.stamp
+build simple_fuzzer: phony obj/simple_fuzzer.stamp
+build fuzzer_support: phony obj/fuzzer_support.stamp
+build v8_libsampler: phony obj/v8_libsampler.stamp
+build postmortem-metadata: phony obj/postmortem-metadata.stamp
+build v8_libbase: phony obj/v8_libbase.stamp
+build v8_libplatform: phony obj/v8_libplatform.stamp
+build v8_nosnapshot: phony obj/v8_nosnapshot.stamp
+build v8: phony ./libv8.dylib.TOC
+build run_mkpeephole: phony obj/run_mkpeephole.stamp
+build gn_all: phony obj/gn_all.stamp
+build v8_snapshot: phony obj/v8_snapshot.stamp
+build v8_dump_build_config: phony obj/v8_dump_build_config.stamp
+build run_mksnapshot: phony obj/run_mksnapshot.stamp
+build d8_js2c: phony obj/d8_js2c.stamp
+build v8_maybe_snapshot: phony obj/v8_maybe_snapshot.stamp
+build v8_base: phony obj/v8_base.stamp
+build js2c: phony obj/js2c.stamp
+build js2c_experimental: phony obj/js2c_experimental.stamp
+build js2c_extras: phony obj/js2c_extras.stamp
+build default_exe_manifest: phony obj/build/win/default_exe_manifest.stamp
+build default_tests: phony obj/test/default_tests.stamp
+build deps: phony obj/build/config/sanitizers/deps.stamp
+build deps_no_options: phony obj/build/config/sanitizers/deps_no_options.stamp
+build gmock: phony obj/testing/gmock/libgmock.a
+build gmock_main: phony obj/testing/gmock/libgmock_main.a
+build gtest: phony obj/testing/gtest/libgtest.a
+build gtest_main: phony obj/testing/gtest/gtest_main.stamp
+build icu: phony obj/third_party/icu/icu.stamp
+build icudata: phony obj/third_party/icu/icudata.stamp
+build icui18n: phony ./libicui18n.dylib.TOC
+build icuuc: phony ./libicuuc.dylib.TOC
+build options_sources: phony obj/build/config/sanitizers/liboptions_sources.a
+build posix: phony obj/build/config/posix/posix.stamp
+build resources: phony obj/test/cctest/resources.stamp
+build testing/gtest$:gtest_main: phony obj/testing/gtest/gtest_main.stamp
+build build/config/posix$:posix: phony obj/build/config/posix/posix.stamp
+build build/config/posix: phony obj/build/config/posix/posix.stamp
+build testing/gmock$:gmock_main: phony obj/testing/gmock/libgmock_main.a
+build test/cctest$:resources: phony obj/test/cctest/resources.stamp
+build testing/gmock$:gmock: phony obj/testing/gmock/libgmock.a
+build testing/gmock: phony obj/testing/gmock/libgmock.a
+build third_party/icu$:icui18n: phony ./libicui18n.dylib.TOC
+build test/unittests$:unittests: phony ./unittests
+build test/unittests: phony ./unittests
+build test/cctest$:generate-bytecode-expectations: phony ./generate-bytecode-expectations
+build $:wasm_asmjs_fuzzer: phony obj/wasm_asmjs_fuzzer.stamp
+build $:wasm_fuzzer: phony obj/wasm_fuzzer.stamp
+build $:v8_shell: phony ./v8_shell
+build tools$:gn_all: phony obj/tools/gn_all.stamp
+build $:parser_fuzzer: phony obj/parser_fuzzer.stamp
+build test$:gn_all: phony obj/test/gn_all.stamp
+build $:json_fuzzer: phony obj/json_fuzzer.stamp
+build testing/gtest$:gtest: phony obj/testing/gtest/libgtest.a
+build testing/gtest: phony obj/testing/gtest/libgtest.a
+build $:v8_simple_wasm_fuzzer: phony ./v8_simple_wasm_fuzzer
+build build/win$:default_exe_manifest: phony obj/build/win/default_exe_manifest.stamp
+build $:regexp_fuzzer: phony obj/regexp_fuzzer.stamp
+build $:v8_simple_regexp_fuzzer: phony ./v8_simple_regexp_fuzzer
+build $:v8_simple_parser_fuzzer: phony ./v8_simple_parser_fuzzer
+build $:v8_simple_json_fuzzer: phony ./v8_simple_json_fuzzer
+build $:v8_hello_world: phony ./v8_hello_world
+build $:js2c_experimental_extras: phony obj/js2c_experimental_extras.stamp
+build $:mkpeephole: phony ./mkpeephole
+build build/config/sanitizers$:deps: phony obj/build/config/sanitizers/deps.stamp
+build $:d8: phony ./d8
+build $:simple_fuzzer: phony obj/simple_fuzzer.stamp
+build $:fuzzer_support: phony obj/fuzzer_support.stamp
+build $:v8_libsampler: phony obj/v8_libsampler.stamp
+build $:postmortem-metadata: phony obj/postmortem-metadata.stamp
+build $:v8_libbase: phony obj/v8_libbase.stamp
+build $:v8_libplatform: phony obj/v8_libplatform.stamp
+build $:v8_nosnapshot: phony obj/v8_nosnapshot.stamp
+build build/config/sanitizers$:options_sources: phony obj/build/config/sanitizers/liboptions_sources.a
+build $:v8_parser_shell: phony ./v8_parser_shell
+build $:v8: phony ./libv8.dylib.TOC
+build third_party/icu$:icu: phony obj/third_party/icu/icu.stamp
+build third_party/icu: phony obj/third_party/icu/icu.stamp
+build third_party/icu$:icuuc: phony ./libicuuc.dylib.TOC
+build test/cctest$:cctest: phony ./cctest
+build test/cctest: phony ./cctest
+build $:v8_sample_process: phony ./v8_sample_process
+build $:run_mkpeephole: phony obj/run_mkpeephole.stamp
+build $:gn_all: phony obj/gn_all.stamp
+build $:v8_snapshot: phony obj/v8_snapshot.stamp
+build $:v8_dump_build_config: phony obj/v8_dump_build_config.stamp
+build $:run_mksnapshot: phony obj/run_mksnapshot.stamp
+build $:v8_simple_wasm_asmjs_fuzzer: phony ./v8_simple_wasm_asmjs_fuzzer
+build $:d8_js2c: phony obj/d8_js2c.stamp
+build $:v8_maybe_snapshot: phony obj/v8_maybe_snapshot.stamp
+build third_party/icu$:icudata: phony obj/third_party/icu/icudata.stamp
+build $:v8_base: phony obj/v8_base.stamp
+build $:mksnapshot: phony ./mksnapshot
+build $:js2c: phony obj/js2c.stamp
+build $:js2c_experimental: phony obj/js2c_experimental.stamp
+build $:js2c_extras: phony obj/js2c_extras.stamp
+build build/config/sanitizers$:deps_no_options: phony obj/build/config/sanitizers/deps_no_options.stamp
+build test$:default_tests: phony obj/test/default_tests.stamp
+
+build all: phony $
+    obj/testing/gtest/gtest_main.stamp $
+    obj/build/config/posix/posix.stamp $
+    obj/testing/gmock/libgmock_main.a $
+    obj/test/cctest/resources.stamp $
+    obj/testing/gmock/libgmock.a $
+    ./libicui18n.dylib.TOC $
+    ./unittests $
+    ./generate-bytecode-expectations $
+    obj/wasm_asmjs_fuzzer.stamp $
+    obj/wasm_fuzzer.stamp $
+    ./v8_shell $
+    obj/tools/gn_all.stamp $
+    obj/parser_fuzzer.stamp $
+    obj/test/gn_all.stamp $
+    obj/json_fuzzer.stamp $
+    obj/testing/gtest/libgtest.a $
+    ./v8_simple_wasm_fuzzer $
+    obj/build/win/default_exe_manifest.stamp $
+    obj/regexp_fuzzer.stamp $
+    ./v8_simple_regexp_fuzzer $
+    ./v8_simple_parser_fuzzer $
+    ./v8_simple_json_fuzzer $
+    ./v8_hello_world $
+    obj/js2c_experimental_extras.stamp $
+    ./mkpeephole $
+    obj/build/config/sanitizers/deps.stamp $
+    ./d8 $
+    obj/simple_fuzzer.stamp $
+    obj/fuzzer_support.stamp $
+    obj/v8_libsampler.stamp $
+    obj/postmortem-metadata.stamp $
+    obj/v8_libbase.stamp $
+    obj/v8_libplatform.stamp $
+    obj/v8_nosnapshot.stamp $
+    obj/build/config/sanitizers/liboptions_sources.a $
+    ./v8_parser_shell $
+    ./libv8.dylib.TOC $
+    obj/third_party/icu/icu.stamp $
+    ./libicuuc.dylib.TOC $
+    ./cctest $
+    ./v8_sample_process $
+    obj/run_mkpeephole.stamp $
+    obj/gn_all.stamp $
+    obj/v8_snapshot.stamp $
+    obj/v8_dump_build_config.stamp $
+    obj/run_mksnapshot.stamp $
+    ./v8_simple_wasm_asmjs_fuzzer $
+    obj/d8_js2c.stamp $
+    obj/v8_maybe_snapshot.stamp $
+    obj/third_party/icu/icudata.stamp $
+    obj/v8_base.stamp $
+    ./mksnapshot $
+    obj/js2c.stamp $
+    obj/js2c_experimental.stamp $
+    obj/js2c_extras.stamp $
+    obj/build/config/sanitizers/deps_no_options.stamp $
+    obj/test/default_tests.stamp
+
+default all
+
+
+rule cc
+  command = ../../third_party/llvm-build/Release+Asserts/bin/clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_c} -c ${in} -o ${out}
+  description = CC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule cxx
+  command = ../../third_party/llvm-build/Release+Asserts/bin/clang++ -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_cc} -c ${in} -o ${out}
+  description = CXX ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule objc
+  command = ../../third_party/llvm-build/Release+Asserts/bin/clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_objc} -c ${in} -o ${out}
+  description = OBJC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule objcxx
+  command = ../../third_party/llvm-build/Release+Asserts/bin/clang++ -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_objcc} -c ${in} -o ${out}
+  description = OBJCXX ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule asm
+  command = ../../third_party/llvm-build/Release+Asserts/bin/clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${asmflags} -c ${in} -o ${out}
+  description = ASM ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule alink
+  command = rm -f ${out} && TOOL_VERSION=1480265338 python ../../build/toolchain/mac/filter_libtool.py libtool -static ${arflags} -o ${out} ${in}
+  description = LIBTOOL-STATIC ${out}
+rule solink
+  command = if [ ! -e "${output_dir}/${target_output_name}${output_extension}" -o ! -e "${output_dir}/${target_output_name}${output_extension}.TOC" ] || otool -l "${output_dir}/${target_output_name}${output_extension}" | grep -q LC_REEXPORT_DYLIB ; then TOOL_VERSION=1480265338 ../../build/toolchain/mac/linker_driver.py ../../third_party/llvm-build/Release+Asserts/bin/clang++ -shared  -Wl,-install_name,@rpath/"${target_output_name}${output_extension}" ${ldflags} -o "${output_dir}/${target_output_name}${output_extension}" -Wl,-filelist,"${output_dir}/${target_output_name}${output_extension}.rsp" ${libs} ${solibs} && { otool -l "${output_dir}/${target_output_name}${output_extension}" | grep LC_ID_DYLIB -A 5; nm -gP "${output_dir}/${target_output_name}${output_extension}" | cut -f1-2 -d' ' | grep -v U$$$$; true; } > "${output_dir}/${target_output_name}${output_extension}.TOC"; else TOOL_VERSION=1480265338 ../../build/toolchain/mac/linker_driver.py ../../third_party/llvm-build/Release+Asserts/bin/clang++ -shared  -Wl,-install_name,@rpath/"${target_output_name}${output_extension}" ${ldflags} -o "${output_dir}/${target_output_name}${output_extension}" -Wl,-filelist,"${output_dir}/${target_output_name}${output_extension}.rsp" ${libs} ${solibs} && { otool -l "${output_dir}/${target_output_name}${output_extension}" | grep LC_ID_DYLIB -A 5; nm -gP "${output_dir}/${target_output_name}${output_extension}" | cut -f1-2 -d' ' | grep -v U$$$$; true; } > "${output_dir}/${target_output_name}${output_extension}.tmp" && if ! cmp -s "${output_dir}/${target_output_name}${output_extension}.tmp" "${output_dir}/${target_output_name}${output_extension}.TOC"; then mv "${output_dir}/${target_output_name}${output_extension}.tmp" "${output_dir}/${target_output_name}${output_extension}.TOC" ; fi; fi
+  description = SOLINK ${out}
+  rspfile = ${output_dir}/${target_output_name}${output_extension}.rsp
+  rspfile_content = ${in_newline}
+  pool = build_toolchain_link_pool
+  restat = 1
+rule solink_module
+  command = TOOL_VERSION=1480265338 ../../build/toolchain/mac/linker_driver.py ../../third_party/llvm-build/Release+Asserts/bin/clang++ -bundle ${ldflags} -o "${output_dir}/${target_output_name}${output_extension}" -Wl,-filelist,"${output_dir}/${target_output_name}${output_extension}.rsp" -Wl,-install_name,@rpath/${target_output_name}${output_extension} ${solibs} ${libs}
+  description = SOLINK_MODULE ${out}
+  rspfile = ${output_dir}/${target_output_name}${output_extension}.rsp
+  rspfile_content = ${in_newline}
+  pool = build_toolchain_link_pool
+rule link
+  command = TOOL_VERSION=1480265338 ../../build/toolchain/mac/linker_driver.py ../../third_party/llvm-build/Release+Asserts/bin/clang++  ${ldflags} -o "${output_dir}/${target_output_name}${output_extension}" -Wl,-filelist,"${output_dir}/${target_output_name}${output_extension}.rsp" ${solibs} ${libs}
+  description = LINK ${output_dir}/${target_output_name}${output_extension}
+  rspfile = ${output_dir}/${target_output_name}${output_extension}.rsp
+  rspfile_content = ${in_newline}
+  pool = build_toolchain_link_pool
+rule stamp
+  command = touch ${out}
+  description = STAMP ${out}
+rule copy
+  command = ln -f ${in} ${out} 2>/dev/null || (rm -rf ${out} && cp -af ${in} ${out})
+  description = COPY ${in} ${out}
+rule copy_bundle_data
+  command = rm -rf ${out} && if [[ -d ${in} ]]; then mkdir -p ${out} && cd ${in} && pax -rwl . "$$OLDPWD"/${out}; else ln -f ${in} ${out} 2>/dev/null || (rm -rf ${out} && cp -af ${in} ${out}); fi
+  description = COPY_BUNDLE_DATA ${in} ${out}
+  pool = build_toolchain_mac_bundle_pool
+rule compile_xcassets
+  command = rm -f ${out} && TOOL_VERSION=1480265338 python ../../build/toolchain/mac/compile_xcassets.py -p macosx -t 10.7 -T ${product_type} -o ${out} ${in}
+  description = COMPILE_XCASSETS ${out}
+  pool = build_toolchain_mac_bundle_pool
+
+subninja obj/d8.ninja
+rule ___d8_js2c___build_toolchain_mac_clang_x64__rule
+  command = python ../../tools/js2c.py gen/d8-js.cc D8 ../../src/d8.js ../../src/js/macros.py
+  description = ACTION //:d8_js2c(//build/toolchain/mac:clang_x64)
+  restat = 1
+build obj/d8_js2c.inputdeps.stamp: stamp ../../tools/js2c.py ../../src/d8.js ../../src/js/macros.py
+
+build gen/d8-js.cc: ___d8_js2c___build_toolchain_mac_clang_x64__rule | obj/d8_js2c.inputdeps.stamp
+
+build obj/d8_js2c.stamp: stamp gen/d8-js.cc
+subninja obj/fuzzer_support.ninja
+build obj/gn_all.stamp: stamp ./d8 ./v8_hello_world ./v8_parser_shell ./v8_sample_process ./v8_simple_json_fuzzer ./v8_simple_parser_fuzzer ./v8_simple_regexp_fuzzer ./v8_simple_wasm_asmjs_fuzzer ./v8_simple_wasm_fuzzer obj/test/gn_all.stamp obj/tools/gn_all.stamp ./v8_shell
+rule ___js2c___build_toolchain_mac_clang_x64__rule
+  command = python ../../tools/js2c.py gen/libraries.cc CORE ../../src/js/macros.py ../../src/messages.h ../../src/js/prologue.js ../../src/js/runtime.js ../../src/js/v8natives.js ../../src/js/symbol.js ../../src/js/array.js ../../src/js/string.js ../../src/js/math.js ../../src/js/regexp.js ../../src/js/arraybuffer.js ../../src/js/typedarray.js ../../src/js/iterator-prototype.js ../../src/js/collection.js ../../src/js/weak-collection.js ../../src/js/collection-iterator.js ../../src/js/promise.js ../../src/js/messages.js ../../src/js/array-iterator.js ../../src/js/string-iterator.js ../../src/js/templates.js ../../src/js/spread.js ../../src/js/proxy.js ../../src/debug/mirrors.js ../../src/debug/debug.js ../../src/debug/liveedit.js ../../src/js/i18n.js
+  description = ACTION //:js2c(//build/toolchain/mac:clang_x64)
+  restat = 1
+build obj/js2c.inputdeps.stamp: stamp ../../tools/js2c.py ../../tools/jsmin.py ../../src/js/macros.py ../../src/messages.h ../../src/js/prologue.js ../../src/js/runtime.js ../../src/js/v8natives.js ../../src/js/symbol.js ../../src/js/array.js ../../src/js/string.js ../../src/js/math.js ../../src/js/regexp.js ../../src/js/arraybuffer.js ../../src/js/typedarray.js ../../src/js/iterator-prototype.js ../../src/js/collection.js ../../src/js/weak-collection.js ../../src/js/collection-iterator.js ../../src/js/promise.js ../../src/js/messages.js ../../src/js/array-iterator.js ../../src/js/string-iterator.js ../../src/js/templates.js ../../src/js/spread.js ../../src/js/proxy.js ../../src/debug/mirrors.js ../../src/debug/debug.js ../../src/debug/liveedit.js ../../src/js/i18n.js
+
+build gen/libraries.cc: ___js2c___build_toolchain_mac_clang_x64__rule | obj/js2c.inputdeps.stamp
+
+build obj/js2c.stamp: stamp gen/libraries.cc
+rule ___js2c_experimental___build_toolchain_mac_clang_x64__rule
+  command = python ../../tools/js2c.py gen/experimental-libraries.cc EXPERIMENTAL ../../src/js/macros.py ../../src/messages.h ../../src/js/harmony-async-await.js ../../src/js/harmony-atomics.js ../../src/js/harmony-simd.js ../../src/js/harmony-string-padding.js ../../src/js/icu-case-mapping.js ../../src/js/intl-extra.js
+  description = ACTION //:js2c_experimental(//build/toolchain/mac:clang_x64)
+  restat = 1
+build obj/js2c_experimental.inputdeps.stamp: stamp ../../tools/js2c.py ../../tools/jsmin.py ../../src/js/macros.py ../../src/messages.h ../../src/js/harmony-async-await.js ../../src/js/harmony-atomics.js ../../src/js/harmony-simd.js ../../src/js/harmony-string-padding.js ../../src/js/icu-case-mapping.js ../../src/js/intl-extra.js
+
+build gen/experimental-libraries.cc: ___js2c_experimental___build_toolchain_mac_clang_x64__rule | obj/js2c_experimental.inputdeps.stamp
+
+build obj/js2c_experimental.stamp: stamp gen/experimental-libraries.cc
+rule ___js2c_experimental_extras___build_toolchain_mac_clang_x64__rule
+  command = python ../../tools/js2c.py gen/experimental-extras-libraries.cc EXPERIMENTAL_EXTRAS ../../test/cctest/test-experimental-extra.js
+  description = ACTION //:js2c_experimental_extras(//build/toolchain/mac:clang_x64)
+  restat = 1
+build obj/js2c_experimental_extras.inputdeps.stamp: stamp ../../tools/js2c.py ../../tools/jsmin.py ../../test/cctest/test-experimental-extra.js
+
+build gen/experimental-extras-libraries.cc: ___js2c_experimental_extras___build_toolchain_mac_clang_x64__rule | obj/js2c_experimental_extras.inputdeps.stamp
+
+build obj/js2c_experimental_extras.stamp: stamp gen/experimental-extras-libraries.cc
+rule ___js2c_extras___build_toolchain_mac_clang_x64__rule
+  command = python ../../tools/js2c.py gen/extras-libraries.cc EXTRAS ../../test/cctest/test-extra.js
+  description = ACTION //:js2c_extras(//build/toolchain/mac:clang_x64)
+  restat = 1
+build obj/js2c_extras.inputdeps.stamp: stamp ../../tools/js2c.py ../../tools/jsmin.py ../../test/cctest/test-extra.js
+
+build gen/extras-libraries.cc: ___js2c_extras___build_toolchain_mac_clang_x64__rule | obj/js2c_extras.inputdeps.stamp
+
+build obj/js2c_extras.stamp: stamp gen/extras-libraries.cc
+subninja obj/json_fuzzer.ninja
+subninja obj/mkpeephole.ninja
+subninja obj/mksnapshot.ninja
+subninja obj/parser_fuzzer.ninja
+rule ___postmortem-metadata___build_toolchain_mac_clang_x64__rule
+  command = python ../../tools/gen-postmortem-metadata.py gen/debug-support.cc ../../src/objects.h ../../src/objects-inl.h
+  description = ACTION //:postmortem-metadata(//build/toolchain/mac:clang_x64)
+  restat = 1
+build obj/postmortem-metadata.inputdeps.stamp: stamp ../../tools/gen-postmortem-metadata.py ../../src/objects.h ../../src/objects-inl.h
+
+build gen/debug-support.cc: ___postmortem-metadata___build_toolchain_mac_clang_x64__rule | obj/postmortem-metadata.inputdeps.stamp
+
+build obj/postmortem-metadata.stamp: stamp gen/debug-support.cc
+subninja obj/regexp_fuzzer.ninja
+rule ___run_mkpeephole___build_toolchain_mac_clang_x64__rule
+  command = python ../../tools/run.py ./mkpeephole gen/bytecode-peephole-table.cc
+  description = ACTION //:run_mkpeephole(//build/toolchain/mac:clang_x64)
+  restat = 1
+build obj/run_mkpeephole.inputdeps.stamp: stamp ../../tools/run.py ./mkpeephole
+
+build gen/bytecode-peephole-table.cc: ___run_mkpeephole___build_toolchain_mac_clang_x64__rule | obj/run_mkpeephole.inputdeps.stamp
+
+build obj/run_mkpeephole.stamp: stamp gen/bytecode-peephole-table.cc
+rule ___run_mksnapshot___build_toolchain_mac_clang_x64__rule
+  command = python ../../tools/run.py ./mksnapshot --startup_src gen/snapshot.cc --random-seed 314159265
+  description = ACTION //:run_mksnapshot(//build/toolchain/mac:clang_x64)
+  restat = 1
+build obj/run_mksnapshot.inputdeps.stamp: stamp ../../tools/run.py obj/js2c.stamp obj/js2c_experimental.stamp obj/js2c_experimental_extras.stamp obj/js2c_extras.stamp ./mksnapshot obj/run_mkpeephole.stamp obj/third_party/icu/icudata.stamp
+
+build gen/snapshot.cc: ___run_mksnapshot___build_toolchain_mac_clang_x64__rule | obj/run_mksnapshot.inputdeps.stamp
+
+build obj/run_mksnapshot.stamp: stamp gen/snapshot.cc
+subninja obj/simple_fuzzer.ninja
+subninja obj/v8.ninja
+subninja obj/v8_base.ninja
+rule ___v8_dump_build_config___build_toolchain_mac_clang_x64__rule
+  command = python ../../tools/testrunner/utils/dump_build_config.py v8_build_config.json dcheck_always_on=false is_asan=false is_cfi=false is_component_build=true is_debug=false is_msan=false is_tsan=false target_cpu=\"x64\" v8_enable_i18n_support=true v8_target_cpu=\"x64\" v8_use_snapshot=true
+  description = ACTION //:v8_dump_build_config(//build/toolchain/mac:clang_x64)
+  restat = 1
+
+build v8_build_config.json: ___v8_dump_build_config___build_toolchain_mac_clang_x64__rule | ../../tools/testrunner/utils/dump_build_config.py
+
+build obj/v8_dump_build_config.stamp: stamp v8_build_config.json
+subninja obj/v8_hello_world.ninja
+subninja obj/v8_libbase.ninja
+subninja obj/v8_libplatform.ninja
+subninja obj/v8_libsampler.ninja
+subninja obj/v8_maybe_snapshot.ninja
+subninja obj/v8_nosnapshot.ninja
+subninja obj/v8_parser_shell.ninja
+subninja obj/v8_sample_process.ninja
+subninja obj/v8_shell.ninja
+subninja obj/v8_simple_json_fuzzer.ninja
+subninja obj/v8_simple_parser_fuzzer.ninja
+subninja obj/v8_simple_regexp_fuzzer.ninja
+subninja obj/v8_simple_wasm_asmjs_fuzzer.ninja
+subninja obj/v8_simple_wasm_fuzzer.ninja
+subninja obj/v8_snapshot.ninja
+subninja obj/wasm_asmjs_fuzzer.ninja
+subninja obj/wasm_fuzzer.ninja
+build obj/build/config/posix/posix.stamp: stamp
+build obj/build/config/sanitizers/deps.stamp: stamp obj/build/config/sanitizers/deps_no_options.stamp
+build obj/build/config/sanitizers/deps_no_options.stamp: stamp
+subninja obj/build/config/sanitizers/options_sources.ninja
+build obj/build/win/default_exe_manifest.stamp: stamp
+build obj/test/default_tests.stamp: stamp
+build obj/test/gn_all.stamp: stamp obj/test/default_tests.stamp ./cctest ./generate-bytecode-expectations ./unittests
+subninja obj/test/cctest/cctest.ninja
+subninja obj/test/cctest/generate-bytecode-expectations.ninja
+rule __test_cctest_resources___build_toolchain_mac_clang_x64__rule
+  command = python ../../tools/js2c.py gen/test/cctest/resources.cc TEST ../../tools/splaytree.js ../../tools/codemap.js ../../tools/csvparser.js ../../tools/consarray.js ../../tools/profile.js ../../tools/profile_view.js ../../tools/logreader.js ../../test/cctest/log-eq-of-logging-and-traversal.js
+  description = ACTION //test/cctest:resources(//build/toolchain/mac:clang_x64)
+  restat = 1
+build obj/test/cctest/resources.inputdeps.stamp: stamp ../../tools/js2c.py ../../tools/jsmin.py ../../tools/splaytree.js ../../tools/codemap.js ../../tools/csvparser.js ../../tools/consarray.js ../../tools/profile.js ../../tools/profile_view.js ../../tools/logreader.js ../../test/cctest/log-eq-of-logging-and-traversal.js
+
+build gen/test/cctest/resources.cc: __test_cctest_resources___build_toolchain_mac_clang_x64__rule | obj/test/cctest/resources.inputdeps.stamp
+
+build obj/test/cctest/resources.stamp: stamp gen/test/cctest/resources.cc
+subninja obj/test/unittests/unittests.ninja
+subninja obj/testing/gmock/gmock.ninja
+subninja obj/testing/gmock/gmock_main.ninja
+subninja obj/testing/gtest/gtest.ninja
+subninja obj/testing/gtest/gtest_main.ninja
+build obj/third_party/icu/icu.stamp: stamp ./libicui18n.dylib.TOC ./libicuuc.dylib.TOC
+build icudtl.dat: copy ../../third_party/icu/common/icudtl.dat
+
+build obj/third_party/icu/icudata.stamp: stamp icudtl.dat
+subninja obj/third_party/icu/icui18n.ninja
+subninja obj/third_party/icu/icuuc.ninja
+build obj/tools/gn_all.stamp: stamp

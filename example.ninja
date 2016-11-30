@@ -1,0 +1,180 @@
+rule gn
+  command = /Users/johngardner/Sandbox/v8/buildtools/mac/gn --root=/Users/johngardner/Sandbox/v8 -q --check gen //out.gn/x64.release/
+  description = Regenerating ninja files
+
+build build.ninja: gn
+  generator = 1
+  depfile = build.ninja.d
+
+pool build_toolchain_link_pool
+  depth = 4
+
+pool build_toolchain_mac_bundle_pool
+  depth = 4
+
+subninja toolchain.ninja
+
+build wasm_asmjs_fuzzer: phony obj/wasm_asmjs_fuzzer.stamp
+build wasm_fuzzer: phony obj/wasm_fuzzer.stamp
+build parser_fuzzer: phony obj/parser_fuzzer.stamp
+build json_fuzzer: phony obj/json_fuzzer.stamp
+build regexp_fuzzer: phony obj/regexp_fuzzer.stamp
+build js2c_experimental_extras: phony obj/js2c_experimental_extras.stamp
+build simple_fuzzer: phony obj/simple_fuzzer.stamp
+build fuzzer_support: phony obj/fuzzer_support.stamp
+build v8_libsampler: phony obj/v8_libsampler.stamp
+build postmortem-metadata: phony obj/postmortem-metadata.stamp
+build v8_libbase: phony obj/v8_libbase.stamp
+build v8_libplatform: phony obj/v8_libplatform.stamp
+build v8_nosnapshot: phony obj/v8_nosnapshot.stamp
+build v8: phony ./libv8.dylib.TOC
+build run_mkpeephole: phony obj/run_mkpeephole.stamp
+build gn_all: phony obj/gn_all.stamp
+build v8_snapshot: phony obj/v8_snapshot.stamp
+build v8_dump_build_config: phony obj/v8_dump_build_config.stamp
+build run_mksnapshot: phony obj/run_mksnapshot.stamp
+build d8_js2c: phony obj/d8_js2c.stamp
+build v8_maybe_snapshot: phony obj/v8_maybe_snapshot.stamp
+build v8_base: phony obj/v8_base.stamp
+build js2c: phony obj/js2c.stamp
+build js2c_experimental: phony obj/js2c_experimental.stamp
+build js2c_extras: phony obj/js2c_extras.stamp
+build default_exe_manifest: phony obj/build/win/default_exe_manifest.stamp
+build default_tests: phony obj/test/default_tests.stamp
+build deps: phony obj/build/config/sanitizers/deps.stamp
+build deps_no_options: phony obj/build/config/sanitizers/deps_no_options.stamp
+build gmock: phony obj/testing/gmock/libgmock.a
+build gmock_main: phony obj/testing/gmock/libgmock_main.a
+build gtest: phony obj/testing/gtest/libgtest.a
+build gtest_main: phony obj/testing/gtest/gtest_main.stamp
+build icu: phony obj/third_party/icu/icu.stamp
+build icudata: phony obj/third_party/icu/icudata.stamp
+build icui18n: phony ./libicui18n.dylib.TOC
+build icuuc: phony ./libicuuc.dylib.TOC
+build options_sources: phony obj/build/config/sanitizers/liboptions_sources.a
+build posix: phony obj/build/config/posix/posix.stamp
+build resources: phony obj/test/cctest/resources.stamp
+build testing/gtest$:gtest_main: phony obj/testing/gtest/gtest_main.stamp
+build build/config/posix$:posix: phony obj/build/config/posix/posix.stamp
+build build/config/posix: phony obj/build/config/posix/posix.stamp
+build testing/gmock$:gmock_main: phony obj/testing/gmock/libgmock_main.a
+build test/cctest$:resources: phony obj/test/cctest/resources.stamp
+build testing/gmock$:gmock: phony obj/testing/gmock/libgmock.a
+build testing/gmock: phony obj/testing/gmock/libgmock.a
+build third_party/icu$:icui18n: phony ./libicui18n.dylib.TOC
+build test/unittests$:unittests: phony ./unittests
+build test/unittests: phony ./unittests
+build test/cctest$:generate-bytecode-expectations: phony ./generate-bytecode-expectations
+build $:wasm_asmjs_fuzzer: phony obj/wasm_asmjs_fuzzer.stamp
+build $:wasm_fuzzer: phony obj/wasm_fuzzer.stamp
+build $:v8_shell: phony ./v8_shell
+build tools$:gn_all: phony obj/tools/gn_all.stamp
+build $:parser_fuzzer: phony obj/parser_fuzzer.stamp
+build test$:gn_all: phony obj/test/gn_all.stamp
+build $:json_fuzzer: phony obj/json_fuzzer.stamp
+build testing/gtest$:gtest: phony obj/testing/gtest/libgtest.a
+build testing/gtest: phony obj/testing/gtest/libgtest.a
+build $:v8_simple_wasm_fuzzer: phony ./v8_simple_wasm_fuzzer
+build build/win$:default_exe_manifest: phony obj/build/win/default_exe_manifest.stamp
+build $:regexp_fuzzer: phony obj/regexp_fuzzer.stamp
+build $:v8_simple_regexp_fuzzer: phony ./v8_simple_regexp_fuzzer
+build $:v8_simple_parser_fuzzer: phony ./v8_simple_parser_fuzzer
+build $:v8_simple_json_fuzzer: phony ./v8_simple_json_fuzzer
+build $:v8_hello_world: phony ./v8_hello_world
+build $:js2c_experimental_extras: phony obj/js2c_experimental_extras.stamp
+build $:mkpeephole: phony ./mkpeephole
+build build/config/sanitizers$:deps: phony obj/build/config/sanitizers/deps.stamp
+build $:d8: phony ./d8
+build $:simple_fuzzer: phony obj/simple_fuzzer.stamp
+build $:fuzzer_support: phony obj/fuzzer_support.stamp
+build $:v8_libsampler: phony obj/v8_libsampler.stamp
+build $:postmortem-metadata: phony obj/postmortem-metadata.stamp
+build $:v8_libbase: phony obj/v8_libbase.stamp
+build $:v8_libplatform: phony obj/v8_libplatform.stamp
+build $:v8_nosnapshot: phony obj/v8_nosnapshot.stamp
+build build/config/sanitizers$:options_sources: phony obj/build/config/sanitizers/liboptions_sources.a
+build $:v8_parser_shell: phony ./v8_parser_shell
+build $:v8: phony ./libv8.dylib.TOC
+build third_party/icu$:icu: phony obj/third_party/icu/icu.stamp
+build third_party/icu: phony obj/third_party/icu/icu.stamp
+build third_party/icu$:icuuc: phony ./libicuuc.dylib.TOC
+build test/cctest$:cctest: phony ./cctest
+build test/cctest: phony ./cctest
+build $:v8_sample_process: phony ./v8_sample_process
+build $:run_mkpeephole: phony obj/run_mkpeephole.stamp
+build $:gn_all: phony obj/gn_all.stamp
+build $:v8_snapshot: phony obj/v8_snapshot.stamp
+build $:v8_dump_build_config: phony obj/v8_dump_build_config.stamp
+build $:run_mksnapshot: phony obj/run_mksnapshot.stamp
+build $:v8_simple_wasm_asmjs_fuzzer: phony ./v8_simple_wasm_asmjs_fuzzer
+build $:d8_js2c: phony obj/d8_js2c.stamp
+build $:v8_maybe_snapshot: phony obj/v8_maybe_snapshot.stamp
+build third_party/icu$:icudata: phony obj/third_party/icu/icudata.stamp
+build $:v8_base: phony obj/v8_base.stamp
+build $:mksnapshot: phony ./mksnapshot
+build $:js2c: phony obj/js2c.stamp
+build $:js2c_experimental: phony obj/js2c_experimental.stamp
+build $:js2c_extras: phony obj/js2c_extras.stamp
+build build/config/sanitizers$:deps_no_options: phony obj/build/config/sanitizers/deps_no_options.stamp
+build test$:default_tests: phony obj/test/default_tests.stamp
+
+build all: phony $
+    obj/testing/gtest/gtest_main.stamp $
+    obj/build/config/posix/posix.stamp $
+    obj/testing/gmock/libgmock_main.a $
+    obj/test/cctest/resources.stamp $
+    obj/testing/gmock/libgmock.a $
+    ./libicui18n.dylib.TOC $
+    ./unittests $
+    ./generate-bytecode-expectations $
+    obj/wasm_asmjs_fuzzer.stamp $
+    obj/wasm_fuzzer.stamp $
+    ./v8_shell $
+    obj/tools/gn_all.stamp $
+    obj/parser_fuzzer.stamp $
+    obj/test/gn_all.stamp $
+    obj/json_fuzzer.stamp $
+    obj/testing/gtest/libgtest.a $
+    ./v8_simple_wasm_fuzzer $
+    obj/build/win/default_exe_manifest.stamp $
+    obj/regexp_fuzzer.stamp $
+    ./v8_simple_regexp_fuzzer $
+    ./v8_simple_parser_fuzzer $
+    ./v8_simple_json_fuzzer $
+    ./v8_hello_world $
+    obj/js2c_experimental_extras.stamp $
+    ./mkpeephole $
+    obj/build/config/sanitizers/deps.stamp $
+    ./d8 $
+    obj/simple_fuzzer.stamp $
+    obj/fuzzer_support.stamp $
+    obj/v8_libsampler.stamp $
+    obj/postmortem-metadata.stamp $
+    obj/v8_libbase.stamp $
+    obj/v8_libplatform.stamp $
+    obj/v8_nosnapshot.stamp $
+    obj/build/config/sanitizers/liboptions_sources.a $
+    ./v8_parser_shell $
+    ./libv8.dylib.TOC $
+    obj/third_party/icu/icu.stamp $
+    ./libicuuc.dylib.TOC $
+    ./cctest $
+    ./v8_sample_process $
+    obj/run_mkpeephole.stamp $
+    obj/gn_all.stamp $
+    obj/v8_snapshot.stamp $
+    obj/v8_dump_build_config.stamp $
+    obj/run_mksnapshot.stamp $
+    ./v8_simple_wasm_asmjs_fuzzer $
+    obj/d8_js2c.stamp $
+    obj/v8_maybe_snapshot.stamp $
+    obj/third_party/icu/icudata.stamp $
+    obj/v8_base.stamp $
+    ./mksnapshot $
+    obj/js2c.stamp $
+    obj/js2c_experimental.stamp $
+    obj/js2c_extras.stamp $
+    obj/build/config/sanitizers/deps_no_options.stamp $
+    obj/test/default_tests.stamp
+
+default all

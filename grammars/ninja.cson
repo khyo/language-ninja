@@ -7,8 +7,11 @@
 'foldingStopMarker': '^\\S'
 'patterns': [
   {
-    'match': '^\\s*(#.*)'
-    'name': 'comment.ninja'
+    'name': 'comment.line.number-sign.ninja'
+    'begin': '#'
+    'end': '$'
+    'beginCaptures':
+      '0': 'name': 'punctuation.definition.comment.ninja'
   },
   {
     'match': '^(rule)\\s+(\\S+)'
